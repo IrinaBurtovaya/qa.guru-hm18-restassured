@@ -47,7 +47,7 @@ public class DemowebshopTests {
                 $(".account").shouldHave(text(login)));
     }
 
-   /* @Test
+    @Test
     @DisplayName("Successful authorization to some demowebshop (API + UI)")
     void loginWithApiTest() {
         step("Get cookie by api and set it to browser", () -> {
@@ -66,7 +66,7 @@ public class DemowebshopTests {
             step("Open minimal content, because cookie can be set when site is opened", () ->
                     open("/Themes/DefaultClean/Content/images/logo.png"));
             step("Set cookie to browser", () -> {
-                Cookie authCookie = new Cookie (authCookieName, authCookieValue);
+                Cookie authCookie = new Cookie(authCookieName, authCookieValue);
                 WebDriverRunner.getWebDriver().manage().addCookie(authCookie);
             });
         });
@@ -75,26 +75,6 @@ public class DemowebshopTests {
                 open(""));
         step("Verify successful authorization", () ->
                 $(".account").shouldHave(text(login)));
-    }*/
-
-    @Test
-    void loginWithApiTest() {
-
-        step("Open minimal content, because cookie can be set when site is opened", () ->
-                open("/Themes/DefaultClean/Content/images/logo.png"));
-
-        step("Get cookie by api and set it to browser", () -> {
-            String authCookieValue = given()
-                    .contentType("application/x-www-form-urlencoded")
-                    .formParam("Email", login)
-                    .formParam("Password", password)
-                    .log().all()
-                    .when()
-                    .post("/login")
-                    .then()
-                    .log().all()
-                    .statusCode(302)
-                    .extract().cookie(authCookieName);
-
     }
+
 }

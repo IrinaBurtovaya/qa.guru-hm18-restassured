@@ -1,10 +1,11 @@
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import io.netty.handler.codec.http.cookie.Cookie;
+
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.Cookie;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
@@ -50,6 +51,10 @@ public class DemowebshopTests {
     @Test
     @DisplayName("Successful authorization to some demowebshop (API + UI)")
     void loginWithApiTest() {
+
+        step("Open minimal content, because cookie can be set when site is opened", () ->
+                open("/Themes/DefaultClean/Content/images/logo.png"));
+
         step("Get cookie by api and set it to browser", () -> {
             String authCookieValue = given()
                     .contentType("application/x-www-form-urlencoded")
@@ -63,8 +68,6 @@ public class DemowebshopTests {
                     .statusCode(302)
                     .extract().cookie(authCookieName);
 
-            step("Open minimal content, because cookie can be set when site is opened", () ->
-                    open("/Themes/DefaultClean/Content/images/logo.png"));
             step("Set cookie to browser", () -> {
                 Cookie authCookie = new Cookie(authCookieName, authCookieValue);
                 WebDriverRunner.getWebDriver().manage().addCookie(authCookie);

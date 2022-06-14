@@ -23,7 +23,7 @@ public class TestBase {
 
         Configuration.browser = config.getBrowser();
         Configuration.browserSize = config.getBrowserSize();
-        Configuration.remote = "https://" + config.login() + ":" + config.password() + "@" + config.getSelenoid();
+       Configuration.remote = "https://" + config.login() + ":" + config.password() + "@" + config.getSelenoid();
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true);
